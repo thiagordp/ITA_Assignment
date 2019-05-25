@@ -6,25 +6,53 @@ from counting_sort import counting_sort
 
 
 def radix_sort(A):
-    """
-    Radix Sort Implementation
-    :param A: Array A
-    :return:
-    """
+    n = len(A)
 
-    max_elem = max(A)
+    p_n = []
+    n_n = []
 
-    i = 0
-    while floor(max_elem / (10 ** i)) > 0:
-        counting_sort(A, i)
-        i += 1
+    # Create Positive and Negative Arrays
+    for i in range(n):
+        if A[i] < 0:
+            n_n.append((-1) * A[i])
+        else:
+            p_n.append(A[i])
+
+    # Sort each Array
+    _radix_sort(n_n)
+    _radix_sort(p_n)
+
+    Nn = len(n_n)
+    Np = len(p_n)
+
+    # Merge the results
+
+    # Include Negatives in inverse order
+    for i in range(Nn):
+        ind = (Nn - 1) - i
+        A[i] = (-1) * n_n[ind]
+
+    # Include Positives in order starting after the last negative.
+    for i in range(Np):
+        ind = (Nn + i)
+        A[ind] = p_n[i]
+
+
+def _radix_sort(A):
+    if len(A) > 0:
+        max_elem = max(A)
+
+        i = 0
+        while floor(max_elem / (10 ** i)) > 0:
+            counting_sort(A, i)
+            i += 1
 
 
 if __name__ == "__main__":
     print("Generating Random Array...")
 
     t1 = time()
-    A = [randint(0, 2 ** 8) for p in range(0, 4 ** 10)]
+    A = [randint(-2 ** 32, 2 ** 32) for p in range(0, 4 ** 4)]
     t2 = time()
 
     print(t2 - t1)
