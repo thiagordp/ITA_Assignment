@@ -1,6 +1,6 @@
 from random import randint
 from time import time
-
+from math import floor
 
 def insertion_sort(A):
     """
@@ -23,25 +23,19 @@ def insertion_sort(A):
 
         A[i + 1] = key
 
+        if j % 10000 == 0:
+            print(floor(j / 10000))
+
     return A
 
 
-"""
-MAIN
-"""
 if __name__ == '__main__':
     print("Generating Random Array...")
-    t1 = time()
-    A = [randint(-2 ** 32, 2 ** 32) for p in range(0, 100)]
-    t2 = time()
+    A = [randint(-2 ** 32, 2 ** 32) for p in range(0, 10)]
 
-    print(t2 - t1)
-    # print("Unsorted: ", A)
-    n = len(A) - 1
     t1 = time()
     print("Sorting...")
     insertion_sort(A)
     t2 = time()
     print("Time: ", (t2 - t1))
-
-#  print("Sorted:", A)
+    print("Sorted:", A)

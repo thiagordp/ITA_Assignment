@@ -46,7 +46,10 @@ def merge(A, p, q, r):
 
     i = j = 0
 
-    for k in range(p, r + 1):       # The second parameter from range() is exclusive. Thus, it's need to add "+1" to include the index 'r'
+    # The second parameter from range() is exclusive. Thus, it's need to add "+1" to include the index 'r'
+    for k in range(p, r + 1):
+
+
 
         if la[i] <= ra[j]:
             A[k] = la[i]
@@ -60,8 +63,7 @@ def merge(A, p, q, r):
 MAIN
 """
 if __name__ == '__main__':
-    #A = [5, -4, 6, 10, 1, 3, 50, 30, 18, 17, 20, 100, 15, 16, 1, -1, -2, -3, 23, 10]
-    A = [1]
+    A = [5, -4, 6, 10, 1, 3, 50, 30, 18, 17, 20, 100, 15, 16, 1, -1, -2, -3, 23, 10]
     print("Unsorted: ", A)
     n = len(A) - 1
     merge_sort(A, 0, n)

@@ -4,7 +4,6 @@ from time import time
 
 from counting_sort import counting_sort
 
-
 def radix_sort(A):
     n = len(A)
 
