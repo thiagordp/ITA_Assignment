@@ -1,6 +1,7 @@
 """
 Imports
 """
+from datetime import datetime
 from random import randint
 from time import time
 
@@ -68,7 +69,7 @@ def test_alg(alg, size_array):
         for test in range(N_TESTS_ALG):
             A = list.copy(t_arrays[test])
             t1 = time()
-            #merge_sort(A, 0, len(A) - 1)
+            merge_sort(A, 0, len(A) - 1)
             t2 = time()
             print("T%d," % test, t2 - t1)
             sum += t2 - t1
@@ -83,7 +84,7 @@ def test_alg(alg, size_array):
         for test in range(N_TESTS_ALG):
             A = list.copy(t_arrays[test])
             t1 = time()
-            #radix_sort(A)
+            radix_sort(A)
             t2 = time()
             print("T%d," % test, t2 - t1)
             sum += t2 - t1
@@ -98,18 +99,19 @@ def test_alg(alg, size_array):
         for test in range(N_TESTS_ALG):
             A = list.copy(t_arrays[test])
             t1 = time()
-            #bucket_sort(A, len(A))
+            bucket_sort(A, len(A))
             t2 = time()
             print("T%d," % test, t2 - t1)
             sum += t2 - t1
         print("AVG: ", sum / N_TESTS_ALG)
 
 
-
 if __name__ == "__main__":
 
     st = "log.txt"
     #    sys.stdout = open(st, 'w')
+
+    print("Starting tests at: ", datetime.now())
 
     # Array creation for each test
     for arr in range(N_ARRAYS):
