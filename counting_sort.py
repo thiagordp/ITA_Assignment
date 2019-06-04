@@ -24,7 +24,7 @@ def counting_sort(A, k):
     :param k: Position to sort
     :return: Permutation of A in sorted order
     """
-    
+
     # Create the array of (n-m)+1 positions
     count_array = [0 for i in range(_RANGE + 1)]
 
@@ -32,8 +32,6 @@ def counting_sort(A, k):
     for i in range(len(A)):
         x = _get_k_element(A[i], k)
         count_array[x] = count_array[x] + 1
-
-
 
     # Modify the counting array so that each index is the sum of previous countings
     # Starting from the second position in the array

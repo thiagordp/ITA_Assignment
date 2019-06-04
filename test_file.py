@@ -24,11 +24,11 @@ N_ARRAYS = len(ARRAYS_SIZES)
 # Number of different arrays to test the algorithms
 N_TESTS_ALG = 10
 
-INSERTION_SORT = 0
-MERGE_SORT = 1
-RADIX_SORT = 2
-BUCKET_SORT = 3
-ALGS = [INSERTION_SORT, MERGE_SORT, RADIX_SORT, BUCKET_SORT]
+INSERTION_SORT = 3
+MERGE_SORT = 0
+RADIX_SORT = 1
+BUCKET_SORT = 2
+ALGS = [MERGE_SORT, RADIX_SORT, BUCKET_SORT, INSERTION_SORT]
 N_ALGS = len(ALGS)
 
 
@@ -47,7 +47,7 @@ def test_alg(alg, size_array):
     # Insertion Sort
     if alg == INSERTION_SORT:
         print("INSERTION_SORT", end=",")
-        print("N=%d" % (size_array))
+        print("N=%d" % size_array)
 
         sum = 0
         # Test N times to get a more precise average time
@@ -62,7 +62,7 @@ def test_alg(alg, size_array):
 
     elif alg == MERGE_SORT:
         print("MERGE_SORT", end=",")
-        print("N=%d" % (size_array))
+        print("N=%d" % size_array)
 
         sum = 0
         # Test N times to get a more precise average time
@@ -77,7 +77,7 @@ def test_alg(alg, size_array):
 
     elif alg == RADIX_SORT:
         print("RADIX_SORT", end=",")
-        print("N=%d" % (size_array))
+        print("N=%d" % size_array)
 
         sum = 0
         # Test N times to get a more precise average time
@@ -92,7 +92,7 @@ def test_alg(alg, size_array):
 
     elif alg == BUCKET_SORT:
         print("BUCKET_SORT", end=",")
-        print("N=%d" % (size_array))
+        print("N=%d" % size_array)
 
         sum = 0
         # Test N times to get a more precise average time
@@ -107,9 +107,6 @@ def test_alg(alg, size_array):
 
 
 if __name__ == "__main__":
-
-    st = "log.txt"
-    #    sys.stdout = open(st, 'w')
 
     print("Starting tests at: ", datetime.now())
 

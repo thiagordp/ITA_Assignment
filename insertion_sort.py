@@ -15,7 +15,6 @@ def insertion_sort(A):
     t1 = time()
     for j in range(1, n):
 
-
         key = A[j]
 
         # Insert A[j] into the sorted sequence A[1, ..., j-1]
@@ -29,7 +28,7 @@ def insertion_sort(A):
 
         if j % 10000 == 0:
             t2 = time()
-            print(floor(j / 10000), " | ", datetime.now(), " | ", t2 - t1)
+            print(floor(j / 10000), " | ", datetime.now(), " | ", round(t2 - t1, 2))
             t1 = time()
     return A
 
