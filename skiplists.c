@@ -1,29 +1,39 @@
+/*
+ * Skiplists implementation
+ *
+ * @author Ana Caroline, Marcelo and Thiago
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
 #include <time.h>
 #include <math.h>
 
-#define MAX_LEVEL 10
-#define P 0.5
+#ifndef SKIPLISTS
+#define SKIPLISTS
 
-// Node
+#define MAX_LEVEL   10
+#define P           0.5
+
+/* Node struct type definition */
 typedef struct node_ {
     int key;
     int value;
     struct node_ **forward;
 } node;
 
-
-// Skiplist
+/* Skiplist struct type definition */
 typedef struct skiplist_ {
     int level;
     int size;
     node *header;
 } skiplist;
 
+/* Nil node */
+static node *nil = NULL;
 
-// Rand
+/* Generate random level*/
 int random_level() {
     int level = 1;
 
@@ -34,10 +44,7 @@ int random_level() {
     return level;
 }
 
-
-static node *nil = NULL;
-
-// Inicializa
+/* Initialize skiplist */
 void skiplistInit(skiplist *s) {
 
     int i;
@@ -46,13 +53,10 @@ void skiplistInit(skiplist *s) {
 
     s->level = 1;
     s->size = 0;
-
     s->header = header;
     s->header->key = INT_MIN;
     s->header->value = 0;
     s->header->forward = (node **) calloc(MAX_LEVEL, sizeof(node *));
-
-    node *x = nil;
 
     nil->key = INT_MAX;
 
@@ -64,7 +68,14 @@ void skiplistInit(skiplist *s) {
 }
 
 
-// Procura
+
+
+/**
+ * Search for a key inside a skiplist
+ * @param s Skiplist pointer
+ * @param key Key for search
+ * @return A pointer to the node which has the key or NULL otherwise.
+ */
 node *skiplistSearch(skiplist *s, int key) {
 
     node *x = s->header;
@@ -83,13 +94,12 @@ node *skiplistSearch(skiplist *s, int key) {
     return NULL;
 }
 
-
 /**
  * Insert a key-value pair into the skiplist.
- * @param s
- * @param key
- * @param value
- * @return
+ * @param s Skiplist pointer
+ * @param key Key to insert
+ * @param value Value to insert
+ * @return Operation result
  */
 int skiplistInsert(skiplist *s, int key, int value) {
 
@@ -99,7 +109,6 @@ int skiplistInsert(skiplist *s, int key, int value) {
     int i, new_level;
 
     for (i = (s->level - 1); i >= 0; i--) {
-
         while (x->forward[i]->key < key) {
             x = x->forward[i];
         }
@@ -109,10 +118,10 @@ int skiplistInsert(skiplist *s, int key, int value) {
 
     x = x->forward[0];
 
-    // If the key already exists in the skiplist
+    /* If the key already exists in the skiplist*/
     if (x->key == key) {
         x->value = value;
-    } else {  // If it's a new key
+    } else {  /* If it's a new key */
         s->size += 1;
 
         new_level = random_level();
@@ -127,7 +136,6 @@ int skiplistInsert(skiplist *s, int key, int value) {
         }
 
         x = (node *) malloc(sizeof(node));
-
         x->key = key;
         x->value = value;
         x->forward = (node **) calloc(new_level, sizeof(node *));
@@ -138,13 +146,14 @@ int skiplistInsert(skiplist *s, int key, int value) {
         }
     }
 
-
     return 0;
 }
 
-// Free node
+/**
+ * Free memory used by a node
+ * @param x Node x
+ */
 void freeNode(node *x) {
-
     if (x != NULL) {
         free(x->forward);
         free(x);
@@ -185,7 +194,6 @@ int skiplistDelete(skiplist *s, int key) {
         while (s->level > 1 && s->header->forward[s->level - 1] == nil) {
             s->level -= 1;
         }
-
         s->size -= 1;
 
         return 1;
@@ -217,61 +225,4 @@ void skiplistPrint(skiplist *s) {
         printf("\n");
     }
 }
-
-int main() {
-    int arr[10], i;
-    skiplist list;
-
-    skiplistInit(&list);
-
-    srand(time(NULL));                                              // Seed
-
-    /**
-     * Generate array with size 100 w/ random elements.
-     */
-    printf("Test array:");
-    for (i = 0; i < sizeof(arr) / sizeof(arr[0]); i++) {
-        arr[i] = 10+rand()%5;
-        printf("\t%d", arr[i]);
-    }
-
-    /**
-     * Insert Elements
-     */
-    printf("\nInsert:--------------------\n");
-    for (i = 0; i < sizeof(arr) / sizeof(arr[0]); i++) {
-        skiplistInsert(&list, arr[i], rand() % 10000);
-    }
-
-
-    skiplistPrint(&list);
-
-    /**
-     * Search Elements
-     */
-    printf("\nSearch:--------------------\n");
-    for (i = 0; i < 10; i++) {
-
-        int index = rand() % (sizeof(arr) / sizeof(arr[0]));
-        node *x = skiplistSearch(&list, arr[index]);
-
-        if (x) {
-            printf("key = %d, value = %d\n", arr[index], x->value);
-        } else {
-            printf("key = %d, not found\n", arr[index]);
-        }
-    }
-
-    /**
-     * Delete Elements
-     */
-    printf("\nDelete:--------------------\n");
-    int index = rand() % (sizeof(arr) / sizeof(arr[0]));
-    skiplistDelete(&list, arr[index]);
-    index = rand() % (sizeof(arr) / sizeof(arr[0]));
-    skiplistDelete(&list, arr[index]);
-
-    skiplistPrint(&list);
-
-    return 0;
-}
+#endif
