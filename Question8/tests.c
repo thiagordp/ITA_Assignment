@@ -14,7 +14,7 @@
 #define N_S8192     8192
 #define N_S65536    65536
 
-/* Total tests to run. */
+/* Total of tests to run. */
 #define N_TESTS     1000
 
 void test(int n_elem, int n_tests) {

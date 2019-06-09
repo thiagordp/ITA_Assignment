@@ -118,10 +118,10 @@ int skiplistInsert(skiplist *s, int key, int value) {
 
     x = x->forward[0];
 
-    /* If the key already exists in the skiplist*/
-    if (x->key == key) {
+   
+    if (x->key == key) {    /* If the key already exists in the skiplist */
         x->value = value;
-    } else {  /* If it's a new key */
+    } else {                /* If it's a new key */
         s->size += 1;
 
         new_level = random_level();

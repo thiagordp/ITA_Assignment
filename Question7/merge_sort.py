@@ -1,7 +1,6 @@
 import math
 import sys
 
-
 def merge_sort(A, p, r):
     """
     Merge sort alg implememtation
@@ -45,12 +44,9 @@ def merge(A, p, q, r):
     ra.append(sys.maxsize)
 
     i = j = 0
-
-    # The second parameter from range() is exclusive. Thus, it's need to add "+1" to include the index 'r'
+    
+    # The second parameter from range() is exclusive. Thus, it's needed to add "+1" to include the index 'r'
     for k in range(p, r + 1):
-
-
-
         if la[i] <= ra[j]:
             A[k] = la[i]
             i = i + 1
@@ -58,13 +54,31 @@ def merge(A, p, q, r):
             A[k] = ra[j]
             j = j + 1
 
-
-"""
-MAIN
-"""
 if __name__ == '__main__':
-    A = [5, -4, 6, 10, 1, 3, 50, 30, 18, 17, 20, 100, 15, 16, 1, -1, -2, -3, 23, 10]
-    print("Unsorted: ", A)
+
+    A = [12, 0, 2, 7, 1, -2]
+    B = [-1, -2, -3, 4]
+    C = [1, -1]
+    D = [-1]
+
+
+    print("Unsorted A: ", A)
     n = len(A) - 1
     merge_sort(A, 0, n)
-    print("Sorted:", A)
+    print("Sorted A:   ", A)
+    
+    print("Unsorted B: ", B)
+    n = len(B) - 1
+    merge_sort(B, 0, n)
+    print("Sorted B:   ", B)
+    
+    print("Unsorted C: ", C)
+    n = len(C) - 1
+    merge_sort(C, 0, n)
+    print("Sorted C:   ", C)
+    
+    print("Unsorted D: ", D)
+    n = len(D) - 1
+    merge_sort(D, 0, n)
+    print("Sorted D:   ", D)
+

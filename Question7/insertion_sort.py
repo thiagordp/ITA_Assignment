@@ -8,13 +8,12 @@ def insertion_sort(A):
     """
     Sort by insertion.
     :param A: Original array
-    :return: Subarray with merged subarrays in sorted order
+    :return: Permutation of the original array in sorted order
     """
 
     n = len(A)
-    t1 = time()
-    for j in range(1, n):
 
+    for j in range(1, n):
         key = A[j]
 
         # Insert A[j] into the sorted sequence A[1, ..., j-1]
@@ -23,23 +22,28 @@ def insertion_sort(A):
         while i >= 0 and A[i] > key:
             A[i + 1] = A[i]
             i = i - 1
-
         A[i + 1] = key
-
-        if j % 10000 == 0:
-            t2 = time()
-            print(floor(j / 10000), " | ", datetime.now(), " | ", round(t2 - t1, 2))
-            t1 = time()
     return A
 
-
 if __name__ == '__main__':
-    print("Generating Random Array...")
-    A = [randint(-2 ** 32, 2 ** 32) for p in range(0, 100000)]
+    A = [1, 50, -1, 0, 10, 2]
+    B = [4, 3, 2, 1]
+    C = [1, -1]
+    D = [-1]
 
-    t1 = time()
-    print("Sorting...")
+    print("Unsorted A: ", A)
     insertion_sort(A)
-    t2 = time()
-    print("Time: ", (t2 - t1))
-    print("Sorted:", A)
+    print("Sorted A: ", A)
+    
+    print("Unsorted B: ", B)
+    insertion_sort(B)
+    print("Sorted B: ", B)
+    
+    print("Unsorted C: ", C)
+    insertion_sort(C)
+    print("Sorted C: ", C)
+    
+    print("Unsorted D: ", D)
+    insertion_sort(D)
+    print("Sorted D: ", D)
+
